@@ -89,7 +89,7 @@ if (empty($_POST['id'])){
 
     <link rel="stylesheet" href="../assets/css/lia.css">
 
-    <title>UKS - Universitas Keakehan Sambat</title>
+    <title>Paud - Melati Harapan</title>
 </head>
 
 <body class="bgtotal">
@@ -291,14 +291,14 @@ if (empty($_POST['id'])){
                                         <select class="form-control" id="pelajaran" name="pelajaran">
                                         <option>-- pilih pelajaran --</option>
                                         <?php
-                                            $sql = "select * from pelajaran ";
+                                            $sql = "select pelajaran.id, pelajaran.nama_pelajaran, periode.periode from pelajaran INNER JOIN periode on pelajaran.id_periode = periode.id ";
                                             $result = $conn->query($sql);
                                            
                                             if ($result->num_rows > 0) {
                                                 // output data of each row
                                                 while($row = $result->fetch_assoc()) {
                                         ?>
-                                        <option value="<?php echo $row["id"]; ?>"><?php echo $row["nama_pelajaran"]; ?></option>
+                                        <option value="<?php echo $row["id"]; ?>"><?php echo $row["periode"].' | '.$row["nama_pelajaran"]; ?></option>
                                         <?php
                                                 }
                                             }
@@ -380,6 +380,7 @@ if (empty($_POST['id'])){
                             <th>Pelajaran</th>
                             <th>Kelas</th>
                             <th>Alamat</th>
+                            <th>Periode Ajaran</th>
                             <th>Date</th>
                             <th class="text-center" colspan="2">action</th>
                         </tr>
@@ -387,7 +388,7 @@ if (empty($_POST['id'])){
                     <tbody>
                         
                         <?php
-                            $sql = "select nilai.id, nilai.nilai, nilai.date, nilai.id_siswa, nilai.id_pelajaran, detail_user.nama_siswa, detail_user.alamat, detail_user.umur, pelajaran.nama_pelajaran, kelas.nama_kelas from ((((nilai INNER JOIN siswa ON nilai.id_siswa = siswa.id) INNER JOIN pelajaran ON nilai.id_pelajaran = pelajaran.id) INNER JOIN detail_user ON siswa.id_detail_user = detail_user.id) INNER JOIN kelas ON siswa.id_kelas = kelas.id)";
+                            $sql = "select nilai.id, nilai.nilai, nilai.date, nilai.id_siswa, nilai.id_pelajaran, detail_user.nama_siswa, detail_user.alamat, detail_user.umur, periode.periode, pelajaran.nama_pelajaran, kelas.nama_kelas from (((((nilai INNER JOIN siswa ON nilai.id_siswa = siswa.id) INNER JOIN pelajaran ON nilai.id_pelajaran = pelajaran.id) INNER JOIN detail_user ON siswa.id_detail_user = detail_user.id) INNER JOIN kelas ON siswa.id_kelas = kelas.id) INNER JOIN periode ON pelajaran.id_periode = periode.id)";
                             $result = $conn->query($sql);
                             $no = 1;
                            
@@ -404,6 +405,7 @@ if (empty($_POST['id'])){
                             <td><?php echo $row["nama_pelajaran"]; ?></td>
                             <td><?php echo $row["nama_kelas"]; ?></td>
                             <td><?php echo $row["alamat"]; ?></td>
+                            <td><?php echo $row["periode"]; ?></td>
                             <td><?php echo $row["date"]; ?></td>
                             <td><button type="submit" class=" ubahdata btn btn-outline-dark btn-lg" value="<?php echo $row['nilai'].'|'.$row['id_siswa'].'|'.$row['id_pelajaran'].'|'.$row['id'];?>" >Ubah</button></td>
                             <form class="mt-5" method="post">

@@ -16,7 +16,7 @@ session_start();
 
     <link rel="stylesheet" href="assets/css/lia.css">
 
-    <title>UKS - Universitas Keakehan Sambat</title>
+    <title>Paud - Melati Harapan</title>
 </head>
 
 <body class="bgtotal">
