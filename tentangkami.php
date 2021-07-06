@@ -166,25 +166,28 @@ session_start();
                     <div class="card-body">
                         <h5 class="card-title text-white">Tentang Kami</h5>
 
-                        <div class="row mt-5">
-                            <div class="col-md-2">
-                                <img src="assets/img/user.png" class="img-thumbnail rounded-circle" alt="...">
-                            </div>
-                            <div class="col-md-10">
-                                <p class="text-white">Saya adalah</p>
-                            </div>
-                        </div>
-                        <div class="row mt-5">
-                            <div class="col-md-2">
-                                <img src="assets/img/user.png" class="img-thumbnail rounded-circle" alt="...">
-                            </div>
-                            <div class="col-md-10">
-                                <p class="text-white">Rekan saya adalah</p>
-                            </div>
-                        </div>
-                      
-                        <!-- <button id='print'onclick=printIt() >Print this page</button> -->
+                        <?php
+                            $sql = "select * from guru";
+                            $result = $conn->query($sql);
+                            $no = 1;
+                           
+                            if ($result->num_rows > 0) {
 
+                                while($row = $result->fetch_assoc()) {
+                        ?>   
+                        <div class="row mt-5">
+                            <div class="col-md-2">
+                                <img src="assets/img/user.png" class="img-thumbnail rounded-circle" alt="...">
+                            </div>
+                            <div class="col-md-10">
+                                <p class="text-white"><strong><?php echo $row["nama_guru"]; ?></strong></p>
+                            </div>
+                        </div>
+
+                        <?php
+                                }
+                            }
+                        ?>       
                     </div>
                 </div>
             </div>
